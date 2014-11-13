@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<table style="width: 100%">
+			<tr>
+				<td style="text-align: center; vertical-align: middle; width: 100%;">
+					<strong>PC Weight Loss</strong>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="panel-body">
+		<div class="text-center">
+			<p ng-if="! updateReady">Application update is downloading ({{cachedCount}} of X).</p>
+			<p ng-if="updateReady">Application update is complete.</p>
+		</div>
+	</div>
+	<div class="panel-footer">
+		<table style="width: 100%">
+			<tr>
+				<td style="text-align: left; vertical-align: top; width: 20%";>
+					<p><button ng-click="reloadApplication()" class="btn btn-default btn-sm" ng-disabled="! updateReady"><span class="glyphicon glyphicon-refresh"></span> Reload</button></p>
+                                </td>
+                                <td style="text-align: center; vertical-align: bottom; width: 60%;">
+					&nbsp;
+                                </td>
+                                <td style="text-align: right; vertical-align: top; width: 20%";>
+					&nbsp;
+                                </td>
+                        </tr>
+                </table>
+        </div>
+
+</div>

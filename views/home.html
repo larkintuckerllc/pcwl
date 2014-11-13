@@ -1,0 +1,26 @@
+<div ng-class="{'slider_menu': true, 'slider_menu-right': menuOpen} ">
+	<div class="list-group">
+		<a ng-click="logout()" class="list-group-item">Logout</a>
+		<a ng-click="navigate('/user')" class="list-group-item">Account</a>
+		<a ng-click="navigate('/about')" class="list-group-item">About</a>
+	</div>
+</div>
+<div ng-class="{'panel': true, 'panel-default': true, 'slider_content': true, 'slider_content-right': menuOpen} ">
+	<div class="panel-heading">
+		<table style="width: 100%">
+			<tr>
+				<td style="text-align: left; vertical-align: middle; width: 20%;">
+					<button  ng-click="toggleMenu()" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-list"></span> Menu</button>
+				</td>
+				<td style="text-align: center; vertical-align: middle; width: 60%;">
+					<strong>PC Weight Loss</strong>
+				</td>
+				<td style="text-align: right; vertical-align: middle; width: 20%;">
+					&nbsp;
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="panel-body">
+	</div>
+</div>

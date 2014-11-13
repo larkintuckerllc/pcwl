@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" manifest="project.manifest">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>PC Weight Loss</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" sizes="114x114" href="assets/img/touch-icon-114.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="assets/img/touch-icon-72.png" />
+	<link rel="apple-touch-icon" href="assets/img/touch-icon-57.png" />
+	<link rel="stylesheet" href="/bower_components/angular-block-ui/angular-block-ui.min.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="app.css">
+	<script>
+		// EXECUTING EARLY TO CATCH ALL CACHED FILE COUNTS
+		if (applicationCache) {
+			var myGlobalCachedCount = 0;
+                	applicationCache.addEventListener('progress', function() {
+				myGlobalCachedCount += 1;
+                	});
+		}
+	</script>
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-route/angular-route.min.js"></script>
+	<script src="/bower_components/angular-block-ui/angular-block-ui.min.js"></script>
+	<script src="/bower_components/firebase/firebase.js"></script>
+	<script src="/bower_components/angularfire/dist/angularfire.min.js"></script>
+	<script src="services/navigator.js"></script>
+	<script src="controllers/standard.js"></script>
+	<script src="controllers/home.js"></script>
+	<script src="app.js"></script>
+	<script src="routes/routes.js"></script>
+</head>
+<body>
+<div class="slider_container">
+	<ng-view></ng-view>
+</div>
+</body>
+</html>

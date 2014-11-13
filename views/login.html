@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<table style="width: 100%">
+			<tr>
+				<td style="text-align: center; vertical-align: middle; width: 100%;">
+					<strong>PC Weight Loss</strong>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="panel-body">
+		<form name="login_form" role="form">
+			<div ng-class="{'form-group': true,  'has-feedback': true,  'has-error': (login_form.email.$error.required || login_form.email.$error.email)}">
+				<label class="control-label" for="email">Email</label>
+				<input type="email" name="email" class="form-control" id="email" placeholder="Email" ng-model="email" required>
+			</div>
+			<div ng-class="{'form-group': true,  'has-feedback': true,  'has-error': (login_form.password.$error.required)}">
+				<label class="control-label" for="password">Password</label>
+				<input type="password" name="password" class="form-control" id="password" placeholder="Password" ng-model="password" required>
+			</div>
+		</form>
+                <p ng-if="failed" style="text-align: center" class="text-danger">email or password incorrect</p> 
+		<p ng-if="failed && ! login_form.email.$error.required && ! login_form.email.$error.email" style="text-align: center"><button ng-click="reset();" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-envelope"></span> Send Reset Email</button></p>
+                <p ng-if="sent" style="text-align: center" class="text-success">sent reset email</p> 
+	</div>
+	<div class="panel-footer">
+		<table style="width: 100%">
+			<tr>
+				<td style="text-align: left; vertical-align: top; width: 20%";>
+					<button ng-click="login();" type="button" class="btn btn-default btn-sm" ng-disabled="login_form.email.$error.required || login_form.email.$error.email || login_form.password.$error.required" ><span class="glyphicon glyphicon-user"></span> Login</button>
+                                </td>
+                                <td style="text-align: center; vertical-align: bottom; width: 60%;">
+					&nbsp;
+                                </td>
+                                <td style="text-align: right; vertical-align: top; width: 20%";>
+					<button  ng-click="navigate('/user_create');" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span> Create</button>
+                                </td>
+                        </tr>
+                </table>
+        </div>
+
+</div>
