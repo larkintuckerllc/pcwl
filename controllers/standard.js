@@ -58,9 +58,24 @@ standardControllers.controller('LoginCtrl', ['$scope', '$timeout', 'navigator', 
 			password: $scope.password
 		}, function(error, authData) {
 			if (error === null) {
-				$timeout(function() {
-					navigator.navigate('/home');
-					blockUI.stop();
+				ref.child('users').child(authData.uid).set(authData, function(error) {
+					if (error === null) {
+						ref.child('app_users').child(authData.uid).update({uid: authData.uid}, function(error) {
+							$timeout(function() {
+								if (error === null) {
+									navigator.navigate('/home');
+								} else {
+									navigator.navigate('/error');
+								}
+								blockUI.stop();
+							});
+						});
+					} else {
+						$timeout(function() {
+							navigator.navigate('/error');
+							blockUI.stop();
+						});
+					}
 				});
 			} else {
 				$timeout(function() {
