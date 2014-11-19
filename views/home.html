@@ -1,7 +1,9 @@
 <div ng-class="{'slider_menu': true, 'slider_menu-right': menuOpen} ">
 	<div class="list-group">
-		<a ng-click="logout()" class="list-group-item">Logout</a>
+		<a ng-click="newLog();" class="list-group-item">New Log</a>
+		<a ng-click="navigate('/logs')" class="list-group-item">Logs</a>
 		<a ng-click="navigate('/user')" class="list-group-item">Account</a>
+		<a ng-click="logout()" class="list-group-item">Logout</a>
 		<a ng-click="navigate('/about')" class="list-group-item">About</a>
 	</div>
 </div>
@@ -10,7 +12,7 @@
 		<table style="width: 100%">
 			<tr>
 				<td style="text-align: left; vertical-align: middle; width: 20%;">
-					<button  ng-click="toggleMenu()" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-list"></span> Menu</button>
+					<button ng-click="toggleMenu()" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-list"></span> Menu</button>
 				</td>
 				<td style="text-align: center; vertical-align: middle; width: 60%;">
 					<strong>PC Weight Loss</strong>
@@ -22,5 +24,43 @@
 		</table>
 	</div>
 	<div class="panel-body">
+
+		<!-- CURRENT LOG --> 
+		<div class="panel panel-default"> 
+			<div class="panel-heading">
+				<table style="width: 100%">
+					<tr>
+						<td style="text-align: left; vertical-align: middle; width: 80%;">
+							{{log.time | date:'fullDate'}}
+						</td>
+						<td style="text-align: right; vertical-align: middle; width: 20%;">
+							<button ng-click="navigate('/logs/' + log.key + '/home');" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-list"></span> Detail</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="panel-body">
+				<div ng-class="{'total_thumbnail': true, 'good': inRange(log[total.key],plans[plan][total.key].min,plans[plan][total.key].max)}" ng-repeat="total in totals">
+					<img ng-src="assets/img/{{total.key}}.png"><br>
+					<span style="display: inline" class="badge">{{log[total.key]}}</span>
+				</div>
+			</div>
+		</div>
 	</div>
+	<div class="panel-footer">
+		<table style="width: 100%">
+			<tr>
+				<td style="text-align: left; vertical-align: top; width: 20%";>
+					<p><button ng-click="navigate('/columns');" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-menu"></span> Food Choices</button></p>
+                                </td>
+                                <td style="text-align: center; vertical-align: bottom; width: 60%;">
+					&nbsp;
+                                </td>
+                                <td style="text-align: right; vertical-align: top; width: 20%";>
+					&nbsp;
+                                </td>
+                        </tr>
+                </table>
+        </div>
+
 </div>

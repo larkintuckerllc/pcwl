@@ -24,9 +24,33 @@ angular.module('myApp').config(['$routeProvider', function($routeProvider) {
       	  		templateUrl: 'views/user.html',
        			controller: 'UserCtrl'
 		}).
+		when('/user_password', {
+      	  		templateUrl: 'views/user_password.html',
+       			controller: 'UserPasswordCtrl'
+		}).
 		when('/user_create', {
       	  		templateUrl: 'views/user_create.html',
        			controller: 'UserCreateCtrl'
+		}).
+		when('/logs', {
+      	  		templateUrl: 'views/logs.html',
+       			controller: 'LogsCtrl'
+		}).
+		when('/logs/:key/:from', {
+      	  		templateUrl: 'views/log.html',
+       			controller: 'LogCtrl'
+		}).
+		when('/columns', {
+      	  		templateUrl: 'views/columns.html',
+       			controller: 'ColumnsCtrl'
+		}).
+		when('/columns/:key', {
+      	  		templateUrl: 'views/column.html',
+       			controller: 'ColumnCtrl'
+		}).
+		when('/items/:key', {
+      	  		templateUrl: 'views/item.html',
+       			controller: 'ItemCtrl'
 		}).
       		otherwise({
        			redirectTo: '/'

@@ -1,8 +1,8 @@
 var myApp = angular.module('myApp', [
 	'ngRoute',
 	'blockUI',
-	'firebase',
 	'navigatorServices',
+	'dataServices',
 	'standardControllers',
 	'homeControllers'
 ])

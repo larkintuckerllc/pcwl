@@ -1,9 +1,64 @@
 CACHE MANIFEST
-# 2014-11-13vr
+# 2014-11-19v4
 
 CACHE:
 
+bower_components/angular-block-ui/angular-block-ui.min.css
+bower_components/angular-block-ui/angular-block-ui.min.js
+bower_components/angular/angular.min.js
+bower_components/angular/angular.min.js.map
+bower_components/firebase/firebase.js
+bower_components/angular-route/angular-route.min.js.map
+bower_components/angular-route/angular-route.min.js
+services/data.js
+services/navigator.js
 index.html
+routes/routes.js
+assets/css/bootstrap.min.css
+assets/fonts/glyphicons-halflings-regular.ttf
+assets/fonts/glyphicons-halflings-regular.woff
+assets/fonts/glyphicons-halflings-regular.svg
+assets/fonts/glyphicons-halflings-regular.eot
+assets/img/legumes.png
+assets/img/100.png
+assets/img/50.png
+assets/img/25.png
+assets/img/grain.png
+assets/img/fruits.png
+assets/img/fried.png
+assets/img/vegetables.png
+assets/img/points.png
+assets/img/nuts.png
+assets/img/touch-icon-114.png
+assets/img/free_beverages.png
+assets/img/meats.png
+assets/img/condiments.png
+assets/img/desserts.png
+assets/img/dairy.png
+assets/img/free_condiments.png
+assets/img/touch-icon-72.png
+assets/img/75.png
+assets/img/touch-icon-57.png
+assets/img/bread.png
+assets/img/beverages.png
+views/log.html
+views/about.html
+views/columns.html
+views/home.html
+views/user.html
+views/item.html
+views/error.html
+views/user_create.html
+views/column.html
+views/logs.html
+views/login.html
+views/user_password.html
+views/update.html
+app.js
+app.css
+controllers/custom.js
+controllers/standard.js
+favicon.ico
 
 NETWORK: 
 

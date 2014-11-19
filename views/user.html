@@ -14,32 +14,28 @@
 		</table>
 	</div>
 	<div class="panel-body">
-		<form name="login_form" role="form">
+		<form name="user_form" role="form">
 			<div class="form-group">
 				<label class="control-label">Email</label>
 				<p class="form-control-static">{{email}}</p>
 			</div>
-			<div ng-class="{'form-group': true,  'has-feedback': true,  'has-error': (login_form.old_password.$error.required)}">
-				<label class="control-label" for="old_password">Old Password</label>
-				<input type="password" name="old_password" class="form-control" id="old_password" placeholder="Password" ng-model="oldPassword" required>
+			<div class="form-group" ng-class="{'form-group': true, 'has-feedback': true, 'has-error': user_form.plan.$error.required}"> 
+				<label class="control-label" for="plan">Plan</label>
+				<select name="plan" id="plan" class="form-control" ng-model="plan" required>  
+					<option value="">Select...</option>
+					<option value="success">Success</option>
+					<option value="champion">Champion</option>
+					<option value="achieve">Achieve</option>
+				</select>
 			</div>
-			<div ng-class="{'form-group': true,  'has-feedback': true,  'has-error': (login_form.password.$error.required)}">
-				<label class="control-label" for="password">New Password</label>
-				<input type="password" name="password" class="form-control" id="password" placeholder="Password" ng-model="password" required>
-			</div>
-			<div ng-class="{'form-group': true,  'has-feedback': true,  'has-error': (login_form.confirm.$error.required)}">
-				<label class="control-label" for="confirm">Confirm</label>
-				<input type="password" name="confirm" class="form-control" id="confirm" placeholder="Password" ng-model="confirm" required>
-			</div>
-		</form>
+		<p><button ng-click="navigate('/user_password');" type="button" class="btn btn-default">Change Password</button></p> 
                 <p ng-if="failed" style="text-align: center" class="text-danger">last save failed</p> 
-                <p ng-if="! login_form.password.$error.required && ! login_form.confirm.$error.required && (password !== confirm)" style="text-align: center" class="text-danger">passwords do not match</p> 
 	</div>
 	<div class="panel-footer">
 		<table style="width: 100%">
 			<tr>
 				<td style="text-align: left; vertical-align: top; width: 20%";>
-					<button ng-click="save();" type="button" class="btn btn-default btn-sm" ng-disabled="login_form.old_password.$error.required || login_form.password.$error.required || login_form.confirm.$error.required || (password !== confirm)" ><span class="glyphicon glyphicon-save"></span> Save</button>
+					<button ng-disabled="user_form.plan.$error.required" ng-click="save();" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-save"></span> Save</button>
                                 </td>
                                 <td style="text-align: center; vertical-align: bottom; width: 60%;">
 					&nbsp;

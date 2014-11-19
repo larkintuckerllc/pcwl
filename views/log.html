@@ -1,0 +1,64 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<table style="width: 100%">
+			<tr>
+				<td style="text-align: left; vertical-align: middle; width: 20%;">
+					<button ng-click="navigate('/' + from)" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
+				</td>
+				<td style="text-align: center; vertical-align: middle; width: 60%;">
+					<strong>PC Weight Loss</strong>
+				<td style="text-align: right; vertical-align: middle; width: 20%;">
+					&nbsp;
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="panel-body">
+                <div  class="panel panel-default">
+			<div class="panel-heading">
+				{{log.time | date:'fullDate'}}
+			</div>
+			<ul class="list-group">
+				<li ng-class="{'list-group-item': true, 'good': inRange(log[total.key],plans[plan][total.key].min,plans[plan][total.key].max)}" ng-repeat="total in totals">
+					<table style="width: 100%">
+						<tr>
+							<td style="text-align: left; vertical-align: middle; width: 80%;">
+								<p class="list-group-item-text"><img ng-src="assets/img/{{total.key}}.png"> 
+									<strong>{{total.name}} ({{plans[plan][total.key].min}}
+									<span ng-if="plans[plan][total.key].max">- {{plans[plan][total.key].max}})</span>
+									<span ng-if="! plans[plan][total.key].max">+)</span>
+									</strong>
+								</p>
+							</td>
+							<td style="text-align: right; vertical-align: middle; width: 20%;">
+								<span style="display: inline" class="badge">{{log[total.key]}}</span>
+							</td>
+						</tr>
+					</table>
+				</li>
+			</ul>
+		</div>
+                <div  class="panel panel-default">
+			<div class="panel-heading">
+				Choices
+			</div>
+			<ul class="list-group">
+				<li ng-class="{'list-group-item': true, 'good': choice.quality === 'good', 'soso': choice.quality === 'soso', 'poor': choice.quality === 'poor'}" ng-repeat="choice in choices | orderBy:'time'" ng-click="remove(choice.key);">
+					<table style="width: 100%">
+						<tr>
+							<td style="text-align: left; vertical-align: middle; width: 80%;">
+								<p class="list-group-item-text"><img ng-src="assets/img/{{choice.kind}}.png"> 
+								<img ng-src="assets/img/{{choice.portion * 100}}.png"> 
+								<strong>{{choice.description}}</strong></p>
+							</td>
+							<td style="text-align: right; vertical-align: middle; width: 20%;">
+								<span style="display: inline" class="badge">{{choice.points}}</span>
+								<span class="glyphicon glyphicon-remove"></span>
+							</td>
+						</tr>
+					</table>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

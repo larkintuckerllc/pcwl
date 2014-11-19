@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<table style="width: 100%">
+			<tr>
+				<td style="text-align: left; vertical-align: middle; width: 20%;">
+					<button ng-click="navigate('/columns')" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
+				</td>
+				<td style="text-align: center; vertical-align: middle; width: 60%;">
+					<strong>PC Weight Loss</strong>
+				<td style="text-align: right; vertical-align: middle; width: 20%;">
+					&nbsp;
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="panel-body">
+		<div class="panel panel-default" ng-repeat="kind in kinds | filter: {'column': columnKey}">
+			<div class="panel-heading">
+				{{kind.description}}
+			</div>
+			<ul class="list-group">
+				<li ng-class="{'list-group-item': true, 'good': item.quality === 'good', 'soso': item.quality === 'soso', 'poor': item.quality === 'poor'}" ng-repeat="item in items | filter: {'kind': kind.key}" ng-click="navigate('/items/' + item.key);">
+					<table style="width: 100%">
+						<tr>
+							<td style="text-align: left; vertical-align: middle; width: 80%;">
+								<p class="list-group-item-text"><img ng-src="assets/img/{{item.kind}}.png">
+								<strong>{{item.description}}</strong></p>
+							</td>
+							<td style="text-align: right; vertical-align: middle; width: 20%;">
+                                                                <span style="display: inline" class="badge">{{item.points}}</span>
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</td>
+						</tr>
+					</table>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

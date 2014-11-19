@@ -29,3 +29,20 @@
 .slider_menu-right {
 	left: 0px;
 }
+.good {
+	background-color: rgb(69, 191, 85);
+}
+.soso {
+	background-color: rgb(255, 209, 15); 
+}
+.poor {
+	background-color: rgb(255, 131, 126);
+}
+.total_thumbnail {
+	width: 50px;
+	float: left;
+	margin: 5px;
+	border: 1px solid #ccc;
+	padding: 5px;
+	text-align: center;
+}
