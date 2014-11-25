@@ -1,0 +1,16 @@
+{
+	"firebase": "pcwl",
+	"public": ".",
+	"ignore": [
+		"firebase.json",
+		"**/.*",
+		"**/node_modules/**"
+	],
+	"headers": [ {
+		"source" : "**",
+		"headers" : [ {
+			"key" : "Cache-Control",
+			"value" : "private, max-age=0, no-cache"
+		} ]
+	} ]
+}

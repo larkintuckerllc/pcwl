@@ -16,21 +16,23 @@
 	<div class="panel-body">
 		<div class="panel panel-default">
 			<ul class="list-group">
-				<li ng-class="{'list-group-item': true, 'good': item.quality === 'good', 'soso': item.quality === 'soso', 'poor': item.column.quality === 'poor'}">
+				<li ng-class="{'list-group-item': true, 'good': item.quality === 'good', 'soso': item.quality === 'soso', 'poor': item.quality === 'poor'}">
 					<table style="width: 100%">
 						<tr>
 							<td style="text-align: left; vertical-align: middle; width: 80%;">
 								<p class="list-group-item-text"><img ng-src="assets/img/{{item.kind}}.png">
+								<img ng-src="assets/img/{{sliderValue * 25}}.png">
 								<strong>{{item.description}}</strong></p>
 							</td>
 							<td style="text-align: right; vertical-align: middle; width: 20%;">
-                                                                <span style="display: inline" class="badge">{{item.points}}</span>
+                                                                <span style="display: inline" class="badge">{{item.points * sliderValue * 0.25}}</span>
 							</td>
 						</tr>
 					</table>
 				</li>
 			</ul>
 		</div>
+		<div ng-attr-slider ng-attr-positions="5" value="sliderValue"></div>
 	</div>
 	<div class="panel-footer">
 		<table style="width: 100%">

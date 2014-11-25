@@ -3,6 +3,7 @@ var myApp = angular.module('myApp', [
 	'blockUI',
 	'navigatorServices',
 	'dataServices',
+	'myFirebaseServices',
 	'standardControllers',
 	'homeControllers'
 ])

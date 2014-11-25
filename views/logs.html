@@ -14,7 +14,7 @@
 		</table>
 	</div>
 	<ul class="list-group">
-		<li class="list-group-item" ng-repeat="log in logs | orderBy:'time'" ng-click="navigate('/logs/' + log.key + '/logs');">
+		<li class="list-group-item" ng-repeat="log in logs | orderBy:'time':true" ng-click="navigate('/logs/' + log.key + '/logs');">
 			<table style="width: 100%">
 				<tr>
 					<td style="text-align: left; vertical-align: middle; width: 80%;">

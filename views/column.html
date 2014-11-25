@@ -14,11 +14,13 @@
 		</table>
 	</div>
 	<div class="panel-body">
+		<!-- WATCH OUT FILTER IS A CONTAINS MATCH -->
 		<div class="panel panel-default" ng-repeat="kind in kinds | filter: {'column': columnKey}">
 			<div class="panel-heading">
 				{{kind.description}}
 			</div>
 			<ul class="list-group">
+				<!-- WATCH OUT FILTER IS A CONTAINS MATCH -->
 				<li ng-class="{'list-group-item': true, 'good': item.quality === 'good', 'soso': item.quality === 'soso', 'poor': item.quality === 'poor'}" ng-repeat="item in items | filter: {'kind': kind.key}" ng-click="navigate('/items/' + item.key);">
 					<table style="width: 100%">
 						<tr>

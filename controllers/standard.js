@@ -6,7 +6,7 @@ standardControllers.controller('UpdateCtrl', ['$scope', '$window', '$timeout', '
 	$scope.cachedCount = $window.myGlobalCachedCount;
 	$scope.updateReady = false;
 	$scope.reloadApplication = function() {
-		$window.location.href = '/pcwl/';
+		$window.location.href = '/';
 	}
         if ($window.applicationCache) {
                 $window.applicationCache.addEventListener('noupdate', function(e) {
@@ -42,52 +42,38 @@ standardControllers.controller('UpdateCtrl', ['$scope', '$window', '$timeout', '
 
 standardControllers.controller('ErrorCtrl', ['$scope', '$window', function ($scope, $window) {
 	$scope.reloadApplication = function() {
-		$window.location.href = '/pcwl/';
+		$window.location.href = '/';
 	}
 }]);
 
-standardControllers.controller('LoginCtrl', ['$scope', '$timeout', 'navigator', 'blockUI','$window', function($scope, $timeout, navigator, blockUI, $window) {
+standardControllers.controller('LoginCtrl', ['$scope', '$timeout', 'navigator', 'blockUI','$window', 'myFirebase', function($scope, $timeout, navigator, blockUI, $window, myFirebase) {
 	$scope.failed = false;
 	$scope.sent = false;
 	$scope.navigate = navigator.navigate;
 	var ref = new $window.Firebase('https://pcwl.firebaseio.com');
-
-	// LOGIN
 	$scope.login = function() {
 		$scope.sent = false;
 
-		// AUTH WITH PASSWORD
+		// LEFT IN BLOCKUI AND TIMEOUT
 		blockUI.start();
 		ref.authWithPassword({
 			email: $scope.email,
 			password: $scope.password
 		}, function(error, authData) {
 			$timeout(function() {			
-				if (error === null) {
-
-					// SET USERS
-					blockUI.start();
-					ref.child('users').child(authData.uid).set(authData, function(error) {
-						$timeout(function() {
-							if (error === null) {
-	
-								// UPDATE APP_USERS
-								blockUI.start();
-								ref.child('app_users').child(authData.uid).update({uid: authData.uid}, function(error) {
-									$timeout(function() {
-										if (error === null) {
-											navigator.navigate('/home');
-										} else {
-											navigator.navigate('/error');
-										}
-										blockUI.stop();
-									});
-								});
-							} else {
-								navigator.navigate('/error');
-							}
-							blockUI.stop();
-						});
+				if (! error) {
+					myFirebase.set(ref.child('users').child(authData.uid), authData, function(error) {
+						if (! error) {
+							myFirebase.update(ref.child('app_users').child(authData.uid), {uid: authData.uid}, function(error) {
+								if (! error) {
+									navigator.navigate('/home');
+								} else {
+									navigator.navigate('/error');
+								}
+							});
+						} else {
+							navigator.navigate('/error');
+						}
 					});
 				} else {
 					$scope.failed = true;
@@ -97,8 +83,6 @@ standardControllers.controller('LoginCtrl', ['$scope', '$timeout', 'navigator', 
 			});
 		});;
 	};
-
-	// RESET 
 	$scope.reset = function() {
 		$scope.failed = false;
 		$scope.sent = true;
@@ -117,24 +101,15 @@ standardControllers.controller('UserPasswordCtrl', ['$scope', 'navigator', 'bloc
 	$scope.failed = false;
 	$scope.navigate = navigator.navigate;
 	var ref = new $window.Firebase('https://pcwl.firebaseio.com');
-
-	// ON AUTH
-	blockUI.start();
-	ref.onAuth(function(authData) {
-		$timeout(function() {
-			if (authData != null) {
-				$scope.email = authData.password.email;
-			} else {
-				navigator.navigate('/login');
-			}
-			blockUI.stop();
-		});
-	});
-
-	// SAVE
+	var authData = ref.getAuth();
+	if (authData != null) {
+		$scope.email = authData.password.email;
+	} else {
+		navigator.navigate('/login');
+	}
 	$scope.save = function() {
 
-		// CHANGE PASSWORD
+		// CHANGE PASSWORD LEFT IN BLOCKUI AND TIMEOUT
 		blockUI.start();
 		ref.changePassword({
 			email: $scope.email,
@@ -142,7 +117,7 @@ standardControllers.controller('UserPasswordCtrl', ['$scope', 'navigator', 'bloc
 			newPassword : $scope.password
 		}, function(error) {
 			$timeout(function() {
-				if (error === null) {
+				if (! error) {
 					navigator.navigate('/user');
 				} else {
 					$scope.oldPassword = '';
@@ -160,18 +135,16 @@ standardControllers.controller('UserCreateCtrl', ['$scope', 'navigator', 'blockU
 	$scope.failed = false;
 	$scope.navigate = navigator.navigate;
 	var ref = new $window.Firebase('https://pcwl.firebaseio.com');
-
-	// SAVE
 	$scope.save = function() {
 	
-		// CREATE USER
+		// CREATE USER LEFT IN BLOCKUI AND TIMEOUT
 		blockUI.start();
 		ref.createUser({
 			email: $scope.email,
 			password: $scope.password
 		}, function(error) {
 			$timeout(function() {
-				if (error === null) {
+				if (! error) {
 					navigator.navigate('/login');
 				} else {
 					$scope.password = '';

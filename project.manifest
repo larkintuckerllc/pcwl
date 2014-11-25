@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2014-11-19v4
+# 2014-11-25v1
 
 CACHE:
 
@@ -10,8 +10,12 @@ bower_components/angular/angular.min.js.map
 bower_components/firebase/firebase.js
 bower_components/angular-route/angular-route.min.js.map
 bower_components/angular-route/angular-route.min.js
+bower_components/jquery/dist/jquery.min.js
+bower_components/jquery/dist/jquery.min.map
 services/data.js
+services/myfirebase.js
 services/navigator.js
+services/slider.js
 index.html
 routes/routes.js
 assets/css/bootstrap.min.css
@@ -23,23 +27,33 @@ assets/img/legumes.png
 assets/img/100.png
 assets/img/50.png
 assets/img/25.png
+assets/img/proteindrinks.png
+assets/img/herbs.png
+assets/img/hsffcondiments.png
 assets/img/grain.png
 assets/img/fruits.png
+assets/img/lfcondiments.png
 assets/img/fried.png
 assets/img/vegetables.png
 assets/img/points.png
 assets/img/nuts.png
 assets/img/touch-icon-114.png
-assets/img/free_beverages.png
 assets/img/meats.png
-assets/img/condiments.png
-assets/img/desserts.png
+assets/img/fatcondiments.png
+assets/img/fatdesserts.png
+assets/img/fatfreecond.png
+assets/img/hsffdesserts.png
+assets/img/eggs.png
 assets/img/dairy.png
-assets/img/free_condiments.png
+assets/img/energybars.png
 assets/img/touch-icon-72.png
+assets/img/calfreebev.png
 assets/img/75.png
 assets/img/touch-icon-57.png
+assets/img/highfiber.png
 assets/img/bread.png
+assets/img/proteinbars.png
+assets/img/driedfruit.png
 assets/img/beverages.png
 views/log.html
 views/about.html
