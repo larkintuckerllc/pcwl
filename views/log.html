@@ -43,17 +43,17 @@
 				Choices
 			</div>
 			<ul class="list-group">
-				<li ng-class="{'list-group-item': true, 'good': choice.quality === 'good', 'soso': choice.quality === 'soso', 'poor': choice.quality === 'poor'}" ng-repeat="choice in choices | orderBy:'time'" ng-click="remove(choice.key);">
+				<li ng-class="{'list-group-item': true, 'good': choice.value.quality === 'good', 'soso': choice.value.quality === 'soso', 'poor': choice.value.quality === 'poor'}" ng-repeat="choice in choices | orderBy:choiceComparator" ng-click="remove(choice.key);">
 					<table style="width: 100%">
 						<tr>
 							<td style="text-align: left; vertical-align: middle; width: 80%;">
-								<p class="list-group-item-text"><img ng-src="assets/img/{{choice.kind}}.png"> 
-								<img ng-src="assets/img/{{choice.portion * 100}}.png"> 
-								<strong>{{choice.description}}</strong></p>
+								<p class="list-group-item-text"><img ng-src="assets/img/{{choice.value.kind}}.png"> 
+								<img ng-src="assets/img/{{choice.value.portion * 100}}.png"> 
+								<strong>{{choice.value.description}}</strong></p>
 							</td>
 							<td style="text-align: right; vertical-align: middle; width: 20%;">
-								<span style="display: inline" class="badge">{{choice.points}}</span>
-								<span class="glyphicon glyphicon-remove"></span>
+								<span style="display: inline" class="badge">{{choice.value.points}}</span>
+								<span ng-if="active" class="glyphicon glyphicon-remove"></span>
 							</td>
 						</tr>
 					</table>

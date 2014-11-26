@@ -1,6 +1,5 @@
 <div ng-class="{'slider_menu': true, 'slider_menu-right': menuOpen} ">
 	<div class="list-group">
-		<a ng-click="newLog();" class="list-group-item">New Log</a>
 		<a ng-click="navigate('/logs')" class="list-group-item">Logs</a>
 		<a ng-click="navigate('/user')" class="list-group-item">Account</a>
 		<a ng-click="logout()" class="list-group-item">Logout</a>
@@ -34,7 +33,7 @@
 							{{log.time | date:'fullDate'}}
 						</td>
 						<td style="text-align: right; vertical-align: middle; width: 20%;">
-							<button ng-click="navigate('/logs/' + log.key + '/home');" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-list"></span> Detail</button>
+							<button ng-click="navigate('/logs/' + logKey + '/home');" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-list"></span> Detail</button>
 						</td>
 					</tr>
 				</table>

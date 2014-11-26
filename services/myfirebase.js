@@ -1,8 +1,9 @@
 var module = angular.module('myFirebaseServices', []);
 
-module.service('myFirebase', ['blockUI', '$timeout', function(blockUI, $timeout) {
+module.service('myFirebase', ['blockUI', '$timeout', '$window', function(blockUI, $timeout, $window) {
 	var service = {
 	};
+	service.ref = new $window.Firebase('https://pcwl.firebaseio.com');
 	service.onceValue = function(ref, success, error) {
 		blockUI.start();
 		ref.once('value', function(snapshot) {

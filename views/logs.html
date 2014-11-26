@@ -8,17 +8,17 @@
 				<td style="text-align: center; vertical-align: middle; width: 60%;">
 					<strong>PC Weight Loss</strong>
 				<td style="text-align: right; vertical-align: middle; width: 20%;">
-					&nbsp;
+					<button ng-disabled="logActiveSameDate" ng-click="newLog();" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span> Create</button>
 				</td>
 			</tr>
 		</table>
 	</div>
 	<ul class="list-group">
-		<li class="list-group-item" ng-repeat="log in logs | orderBy:'time':true" ng-click="navigate('/logs/' + log.key + '/logs');">
+		<li class="list-group-item" ng-repeat="log in logs|orderBy:logComparator:true" ng-click="navigate('/logs/' + log.key + '/logs');">
 			<table style="width: 100%">
 				<tr>
 					<td style="text-align: left; vertical-align: middle; width: 80%;">
-						<p class="list-group-item-text"><strong>{{log.time | date:'fullDate'}}</strong></p>
+						<p class="list-group-item-text"><strong>{{log.value.time | date:'fullDate'}}</strong></p>
 					</td>
 					<td style="text-align: right; vertical-align: middle; width: 20%;">
 						<span class="glyphicon glyphicon-chevron-right"></span>
@@ -28,3 +28,5 @@
 		</li>
 	</ul>
 </div>
+
+
