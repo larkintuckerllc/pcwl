@@ -14,12 +14,12 @@
 		</table>
 	</div>
 	<div class="panel-body">
-		<form name="user_form" role="form">
+		<form name="user_form" role="form" novalidate>
 			<div class="form-group">
 				<label class="control-label">Email</label>
 				<p class="form-control-static">{{email}}</p>
 			</div>
-			<div class="form-group" ng-class="{'form-group': true, 'has-feedback': true, 'has-error': user_form.plan.$error.required}"> 
+			<div class="form-group" ng-class="{'form-group': true, 'has-feedback': true, 'has-error': user_form.plan.$invalid}"> 
 				<label class="control-label" for="plan">Plan</label>
 				<select name="plan" id="plan" class="form-control" ng-model="plan" required>  
 					<option value="">Select...</option>
@@ -28,6 +28,7 @@
 					<option value="achieve">Achieve</option>
 				</select>
 			</div>
+		</form>
 		<p><button ng-click="navigate('/user_password');" type="button" class="btn btn-default">Change Password</button></p> 
                 <p ng-if="failed" style="text-align: center" class="text-danger">last save failed</p> 
 	</div>
@@ -35,7 +36,7 @@
 		<table style="width: 100%">
 			<tr>
 				<td style="text-align: left; vertical-align: top; width: 20%";>
-					<button ng-disabled="user_form.plan.$error.required" ng-click="save();" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-save"></span> Save</button>
+					<button ng-disabled="user_form.$invalid" ng-click="save();" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-save"></span> Save</button>
                                 </td>
                                 <td style="text-align: center; vertical-align: bottom; width: 60%;">
 					&nbsp;

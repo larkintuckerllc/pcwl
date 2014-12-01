@@ -38,7 +38,21 @@
 				</li>
 			</ul>
 		</div>
-                <div  class="panel panel-default">
+		<form name="totals_form" role="form" novalidate>
+			<div ng-class="{'form-group': true,  'has-feedback': true, 'has-error': totals_form.exercise.$invalid}">
+				<label class="control-label" for="exercise">Exercise (30-40)</label>
+				<input type="number" name="exercise" class="form-control" id="exercise" placeholder="Minutes" ng-model="log.exercise" posinteger>
+			</div>
+			<div ng-class="{'form-group': true,  'has-feedback': true, 'has-error': totals_form.steps.$invalid}">
+				<label class="control-label" for="steps">Steps (5000 +)</label>
+				<input type="number" name="steps" class="form-control" id="steps" placeholder="Steps" ng-model="log.steps" posinteger>
+			</div>
+			<div ng-class="{'form-group': true,  'has-feedback': true, 'has-error': totals_form.screen.$invalid}">
+				<label class="control-label" for="screen">Screen Time</label>
+				<input type="number" name="screen" class="form-control" id="screen" placeholder="Minutes" ng-model="log.screen" posinteger>
+			</div>
+		</form>
+                <div class="panel panel-default">
 			<div class="panel-heading">
 				Choices
 			</div>
@@ -61,4 +75,19 @@
 			</ul>
 		</div>
 	</div>
+	<div class="panel-footer">
+		<table style="width: 100%">
+			<tr>
+				<td style="text-align: left; vertical-align: top; width: 20%";>
+					<button ng-disabled="totals_form.$invalid" ng-click="save();" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-save"></span> Save</button>
+                                </td>
+                                <td style="text-align: center; vertical-align: bottom; width: 60%;">
+					&nbsp;
+                                </td>
+                                <td style="text-align: right; vertical-align: top; width: 20%";>
+					&nbsp;
+                                </td>
+                        </tr>
+                </table>
+        </div>
 </div>

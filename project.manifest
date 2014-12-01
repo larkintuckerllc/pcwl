@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2014-11-26v1
+# 2014-11-30v1
 
 CACHE:
 
@@ -16,6 +16,7 @@ services/data.js
 services/myfirebase.js
 services/navigator.js
 services/slider.js
+services/posinteger.js
 index.html
 routes/routes.js
 assets/css/bootstrap.min.css

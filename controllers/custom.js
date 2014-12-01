@@ -233,6 +233,24 @@ myFirebase.onceValue(myFirebase.ref.child('logs').child(logKey), function(snapsh
 			});
 		}
 	};
+	$scope.save = function() {
+		if ($scope.log.exercise === null) {
+			delete $scope.log.exercise;
+		}
+		if ($scope.log.steps === null) {
+			delete $scope.log.steps;
+		}
+		if ($scope.log.screen === null) {
+			delete $scope.log.screen;
+		}
+		myFirebase.set(myFirebase.ref.child('logs').child(logKey), $scope.log, function(error) {
+			if (! error) {
+				navigator.navigate('/' + $scope.from);
+			} else {
+				navigator.navigate('/error');
+			}
+		});
+	};
 }]);
 
 standardControllers.controller('UserCtrl', ['$scope', 'navigator', 'myFirebase', function($scope, navigator, myFirebase) {
