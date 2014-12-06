@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2014-11-30v1
+# 2014-12-5v1
 
 CACHE:
 
@@ -12,11 +12,14 @@ bower_components/angular-route/angular-route.min.js.map
 bower_components/angular-route/angular-route.min.js
 bower_components/jquery/dist/jquery.min.js
 bower_components/jquery/dist/jquery.min.map
+bower_components/d3/d3.min.js
+bower_components/c3/c3.min.css
+bower_components/c3/c3.min.js
 services/data.js
 services/myfirebase.js
 services/navigator.js
-services/slider.js
-services/posinteger.js
+services/control.js
+services/validator.js
 index.html
 routes/routes.js
 assets/css/bootstrap.min.css
@@ -69,6 +72,7 @@ views/logs.html
 views/login.html
 views/user_password.html
 views/update.html
+views/weights.html
 app.js
 app.css
 controllers/custom.js

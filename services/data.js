@@ -1,6 +1,6 @@
 var module = angular.module('dataServices', []);
 
-module.service('data', function() {
+module.factory('data', function() {
 	var service = {
 	};
 	service.columns = [

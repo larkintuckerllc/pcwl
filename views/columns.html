@@ -3,7 +3,7 @@
 		<table style="width: 100%">
 			<tr>
 				<td style="text-align: left; vertical-align: middle; width: 20%;">
-					<button ng-click="navigate('/home')" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
+					<button ng-click="navigate('/' + from)" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
 				</td>
 				<td style="text-align: center; vertical-align: middle; width: 60%;">
 					<strong>PC Weight Loss</strong>
@@ -14,7 +14,7 @@
 		</table>
 	</div>
 	<ul class="list-group">
-		<li ng-class="{'list-group-item': true, 'good': column.quality === 'good', 'soso': column.quality === 'soso', 'poor': column.quality === 'poor'}" ng-repeat="column in columns" ng-click="navigate('/columns/' + column.key);">
+		<li ng-class="{'list-group-item': true, 'good': column.quality === 'good', 'soso': column.quality === 'soso', 'poor': column.quality === 'poor'}" ng-repeat="column in columns" ng-click="navigate('/columns/' + column.key + '/from/' + from);">
 			<table style="width: 100%">
 				<tr>
 					<td style="text-align: left; vertical-align: middle; width: 80%;">

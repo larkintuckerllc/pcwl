@@ -38,7 +38,37 @@ var newLog = function(appUserKey, appUser, myFirebase, success, error) {
 	});
 };
 
-homeControllers.controller('HomeCtrl', ['$scope', 'navigator', 'data', 'myFirebase',  function ($scope, navigator, data, myFirebase) {
+var newWeight = function(weight, appUserKey, appUser, myFirebase, success, error) {
+	var weightKey;
+	var d = new Date();
+	var weight = {
+		app_user: appUserKey,
+		weight: weight,
+		time: d.getTime()
+	};	
+	var weightRef = myFirebase.push(myFirebase.ref.child('weights'), weight, function(l_error) {
+		if (! l_error) {
+			if (! appUser.rel_weights) {
+				appUser.rel_weights = {};
+			}
+
+			// TODO JET: NAME DEPRICATED
+			appUser.rel_weights[weightRef.name()] = true;
+			weightKey = weightRef.name();
+			myFirebase.set(myFirebase.ref.child('app_users').child(appUserKey), appUser, function(l_error) {
+				if (! l_error) {
+					success(weightKey, weight);
+				} else {
+					error();
+				}
+			});
+		} else {
+			error();
+		}
+	});
+};
+
+homeControllers.controller('HomeCtrl', ['$scope', 'navigator', 'data', 'myFirebase', function ($scope, navigator, data, myFirebase) {
 	var appUserKey;
 	var appUser;
 	$scope.navigate = navigator.navigate;
@@ -158,7 +188,7 @@ homeControllers.controller('LogsCtrl', ['$scope', 'navigator', 'myFirebase', fun
 
 homeControllers.controller('LogCtrl', ['$scope', 'navigator', '$routeParams', 'data', 'myFirebase', function ($scope, navigator, $routeParams, data, myFirebase) {
 	var uid;
-	var logKey = $routeParams.key;
+	$scope.logKey = $routeParams.key;
 	$scope.from = $routeParams.from;
 	$scope.navigate = navigator.navigate;
 	$scope.totals = data.totals;
@@ -173,10 +203,10 @@ homeControllers.controller('LogCtrl', ['$scope', 'navigator', '$routeParams', 'd
 		myFirebase.onceValue(myFirebase.ref.child('app_users').child(authData.uid), function(snapshot) {
 			var appUser = snapshot.val();
 			$scope.plan = appUser.plan;
-			$scope.active = (appUser.log_active == logKey);
+			$scope.active = (appUser.log_active == $scope.logKey);
 
 // RESETTING INDENT
-myFirebase.onceValue(myFirebase.ref.child('logs').child(logKey), function(snapshot) {
+myFirebase.onceValue(myFirebase.ref.child('logs').child($scope.logKey), function(snapshot) {
 	$scope.log = snapshot.val();	
 	if ($scope.log.rel_choices) {	
 		var choiceKeys = Object.keys($scope.log.rel_choices);
@@ -221,7 +251,7 @@ myFirebase.onceValue(myFirebase.ref.child('logs').child(logKey), function(snapsh
 			delete $scope.log.rel_choices[choiceKey];
 			myFirebase.remove(myFirebase.ref.child('choices').child(choiceKey), function(error) {
 				if (! error) {
-					myFirebase.set(myFirebase.ref.child('logs').child(logKey), $scope.log, function(error) {
+					myFirebase.set(myFirebase.ref.child('logs').child($scope.logKey), $scope.log, function(error) {
 						if (! error) {
 						} else {
 							navigator.navigate('/error');
@@ -243,7 +273,7 @@ myFirebase.onceValue(myFirebase.ref.child('logs').child(logKey), function(snapsh
 		if ($scope.log.screen === null) {
 			delete $scope.log.screen;
 		}
-		myFirebase.set(myFirebase.ref.child('logs').child(logKey), $scope.log, function(error) {
+		myFirebase.set(myFirebase.ref.child('logs').child($scope.logKey), $scope.log, function(error) {
 			if (! error) {
 				navigator.navigate('/' + $scope.from);
 			} else {
@@ -284,9 +314,10 @@ standardControllers.controller('UserCtrl', ['$scope', 'navigator', 'myFirebase',
 	};
 }]);
 
-homeControllers.controller('ColumnsCtrl', ['$scope', 'navigator', 'data', 'myFirebase', function ($scope, navigator, data, myFirebase) {
+homeControllers.controller('ColumnsCtrl', ['$scope', 'navigator', 'data', 'myFirebase', '$routeParams', function ($scope, navigator, data, myFirebase, $routeParams) {
 	$scope.navigate = navigator.navigate;
 	$scope.columns = data.columns;
+	$scope.from = $routeParams.from;
 	var authData = myFirebase.ref.getAuth();
 	if (authData != null) {
 	} else {
@@ -299,6 +330,7 @@ homeControllers.controller('ColumnCtrl', ['$scope', 'navigator', 'data', '$route
 	$scope.kinds = data.kinds;
 	$scope.items = data.items;
 	$scope.navigate = navigator.navigate;
+	$scope.from = $routeParams.from;
 	var authData = myFirebase.ref.getAuth()
 	if (authData != null) {
 	} else {
@@ -318,6 +350,7 @@ homeControllers.controller('ItemCtrl', ['$scope', 'navigator', 'data', '$routePa
 	})[0].column;
 	$scope.navigate = navigator.navigate;
 	$scope.sliderValue = 4;
+	$scope.from = $routeParams.from;
 	var authData = myFirebase.ref.getAuth();
 	if (authData != null) {
 		myFirebase.onceValue(myFirebase.ref.child('app_users').child(authData.uid).child('log_active'), function(snapshot) {
@@ -366,7 +399,7 @@ homeControllers.controller('ItemCtrl', ['$scope', 'navigator', 'data', '$routePa
 				}
 				myFirebase.set(myFirebase.ref.child('logs').child(logActive), log, function(error) {
 					if (! error) {
-						navigator.navigate('/columns/' + $scope.columnKey);
+						navigator.navigate('/columns/' + $scope.columnKey + '/from/' + $scope.from);
 					} else {
 						navigator.navigate('/error');
 					}
@@ -376,4 +409,132 @@ homeControllers.controller('ItemCtrl', ['$scope', 'navigator', 'data', '$routePa
 			}
 		});
 	};
+}]);
+
+var buildChartParameters = function(weights) {
+	var chartWeights = [
+		[],
+		[]
+	];
+	var chartMin = 0;
+	var chartMax = 0;
+	for (var j = 0; j < weights.length; j++) {
+		var jWeightValue = weights[j].value;
+		chartWeights[0].push(jWeightValue.time);
+		chartWeights[1].push(jWeightValue.weight);
+		if (jWeightValue.weight > chartMax) {
+			chartMax = jWeightValue.weight + (jWeightValue.weight * 0.05);
+		}
+		if (jWeightValue.weight < chartMin || chartMin == 0) {
+			chartMin = jWeightValue.weight - (jWeightValue.weight * 0.05);
+		}
+	}
+	return {chartWeights: chartWeights, chartMin: chartMin, chartMax: chartMax};
+};
+
+homeControllers.controller('WeightsCtrl', ['$scope', 'navigator', 'myFirebase', function ($scope,  navigator, myFirebase) {
+	var appUserKey;
+	var appUser;
+	$scope.navigate = navigator.navigate;
+	$scope.weightComparator = function(weight) {
+		return weight.value.time;
+	};
+	$scope.weight = '';
+	$scope.weights = [];
+        $scope.chartShow = false;
+        $scope.chartMin = 0;
+        $scope.chartMax = 1;
+	$scope.chartWeights = [
+		[0, 1],
+		[0, 1]
+	];
+	var authData = myFirebase.ref.getAuth();
+	if (authData != null) {
+		myFirebase.onceValue(myFirebase.ref.child('app_users').child(authData.uid), function(snapshot) {
+			appUserKey = authData.uid;
+			appUser = snapshot.val();	
+			if (appUser.rel_weights) {
+				var weightKeys = Object.keys(appUser.rel_weights);
+				var error = false;
+				var lastWeightKey = weightKeys[weightKeys.length - 1];
+				for (var i = 0; i < weightKeys.length; i++) {
+					if (! error) {
+						myFirebase.onceValue(myFirebase.ref.child('weights').child(weightKeys[i]), function(snapshot) {
+
+							// TODO JET: NAME DEPRICATED
+							var weightKey = snapshot.name();
+							var weight = snapshot.val();
+							$scope.weights.push({key: weightKey, value: weight});
+							if ((weightKey == lastWeightKey) && ($scope.weights.length > 1)) {
+								var chartParameters = buildChartParameters($scope.weights);
+								$scope.chartMin = chartParameters.chartMin;
+								$scope.chartMax = chartParameters.chartMax;
+								$scope.chartWeights = chartParameters.chartWeights;
+								$scope.chartShow = true;
+							}
+						}, function() {
+							error = true;
+							navigator.navigate('/error');
+						});
+					}
+				}
+			}
+		}, function() {
+			navigator.navigate('/error');
+		});
+	} else {
+		navigator.navigate('/login');
+	}
+	$scope.newWeight = function() {
+		newWeight(Number($scope.weight), appUserKey, appUser, myFirebase, function(weightKey, weight) {
+			// SUCCESS
+			$scope.weights.push({key: weightKey, value: weight});
+			$scope.weight = '';
+			if ($scope.weights.length > 1) {
+				var chartParameters = buildChartParameters($scope.weights);
+				$scope.chartMin = chartParameters.chartMin;
+				$scope.chartMax = chartParameters.chartMax;
+				$scope.chartWeights = chartParameters.chartWeights;
+				$scope.chartShow = true;
+			}
+		}, function() {
+			// ERROR
+			navigator.navigate('/error');
+
+		});
+	};
+        $scope.remove = function(weightKey) {
+		var weightPosition = $scope.weights.map(function(weight) {
+			return weight.key;
+		}).indexOf(weightKey);
+		var weight = $scope.weights[weightPosition];
+		$scope.weights.splice(weightPosition,1);
+		if ($scope.weights.length < 2) {
+			$scope.chartShow = false;
+			$scope.chartMin = 0;
+			$scope.chartMax = 1;
+			$scope.chartWeights = [
+				[0, 1],
+				[0, 1]
+			];
+		} else {
+			var chartParameters = buildChartParameters($scope.weights);
+			$scope.chartMin = chartParameters.chartMin;
+			$scope.chartMax = chartParameters.chartMax;
+			$scope.chartWeights = chartParameters.chartWeights;
+		}
+		delete appUser.rel_weights[weightKey];
+		myFirebase.remove(myFirebase.ref.child('weights').child(weightKey), function(error) {
+			if (! error) {
+				myFirebase.set(myFirebase.ref.child('app_users').child(appUserKey), appUser, function(error) {
+					if (! error) {
+					} else {
+						navigator.navigate('/error');
+					}
+				});
+			} else {
+				navigator.navigate('/error');
+			}
+		});
+        };
 }]);

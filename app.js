@@ -4,6 +4,8 @@ var myApp = angular.module('myApp', [
 	'navigatorServices',
 	'dataServices',
 	'myFirebaseServices',
+	'validatorDirectives',
+	'controlDirectives',
 	'standardControllers',
 	'homeControllers'
 ])

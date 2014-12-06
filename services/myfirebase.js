@@ -1,6 +1,6 @@
 var module = angular.module('myFirebaseServices', []);
 
-module.service('myFirebase', ['blockUI', '$timeout', '$window', function(blockUI, $timeout, $window) {
+module.factory('myFirebase', ['blockUI', '$timeout', '$window', function(blockUI, $timeout, $window) {
 	var service = {
 	};
 	service.ref = new $window.Firebase('https://pcwl.firebaseio.com');

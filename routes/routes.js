@@ -36,21 +36,25 @@ angular.module('myApp').config(['$routeProvider', function($routeProvider) {
       	  		templateUrl: 'views/logs.html',
        			controller: 'LogsCtrl'
 		}).
-		when('/logs/:key/:from', {
+		when('/logs/:key/from/:from*', {
       	  		templateUrl: 'views/log.html',
        			controller: 'LogCtrl'
 		}).
-		when('/columns', {
+		when('/columns/from/:from*', {
       	  		templateUrl: 'views/columns.html',
        			controller: 'ColumnsCtrl'
 		}).
-		when('/columns/:key', {
+		when('/columns/:key/from/:from*', {
       	  		templateUrl: 'views/column.html',
        			controller: 'ColumnCtrl'
 		}).
-		when('/items/:key', {
+		when('/items/:key/from/:from*', {
       	  		templateUrl: 'views/item.html',
        			controller: 'ItemCtrl'
+		}).
+		when('/weights', {
+      	  		templateUrl: 'views/weights.html',
+       			controller: 'WeightsCtrl'
 		}).
       		otherwise({
        			redirectTo: '/'

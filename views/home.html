@@ -1,6 +1,7 @@
 <div ng-class="{'slider_menu': true, 'slider_menu-right': menuOpen} ">
 	<div class="list-group">
 		<a ng-click="navigate('/logs')" class="list-group-item">Logs</a>
+		<a ng-click="navigate('/weights')" class="list-group-item">Weights</a>
 		<a ng-click="navigate('/user')" class="list-group-item">Account</a>
 		<a ng-click="logout()" class="list-group-item">Logout</a>
 		<a ng-click="navigate('/about')" class="list-group-item">About</a>
@@ -23,8 +24,6 @@
 		</table>
 	</div>
 	<div class="panel-body">
-
-		<!-- CURRENT LOG --> 
 		<div class="panel panel-default"> 
 			<div class="panel-heading">
 				<table style="width: 100%">
@@ -33,7 +32,7 @@
 							{{log.time | date:'fullDate'}}
 						</td>
 						<td style="text-align: right; vertical-align: middle; width: 20%;">
-							<button ng-click="navigate('/logs/' + logKey + '/home');" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-list"></span> Detail</button>
+							<button ng-click="navigate('/logs/' + logKey + '/from/home');" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-list"></span> Detail</button>
 						</td>
 					</tr>
 				</table>
@@ -44,22 +43,21 @@
 					<span style="display: inline" class="badge">{{log[total.key]}}</span>
 				</div>
 			</div>
+			<div class="panel-footer">
+				<table style="width: 100%">
+					<tr>
+						<td style="text-align: left; vertical-align: top; width: 20%";>
+							<button ng-click="navigate('/columns/from/home');" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span> Create Choice</button>
+						</td>
+						<td style="text-align: center; vertical-align: bottom; width: 60%;">
+							&nbsp;
+						</td>
+						<td style="text-align: right; vertical-align: top; width: 20%";>
+							&nbsp;
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
-	<div class="panel-footer">
-		<table style="width: 100%">
-			<tr>
-				<td style="text-align: left; vertical-align: top; width: 20%";>
-					<p><button ng-click="navigate('/columns');" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-menu"></span> Food Choices</button></p>
-                                </td>
-                                <td style="text-align: center; vertical-align: bottom; width: 60%;">
-					&nbsp;
-                                </td>
-                                <td style="text-align: right; vertical-align: top; width: 20%";>
-					&nbsp;
-                                </td>
-                        </tr>
-                </table>
-        </div>
-
 </div>

@@ -1,5 +1,5 @@
 var module = angular.module('navigatorServices', []);
-module.service('navigator', ['$rootScope', '$location', function($rootScope, $location) {
+module.factory('navigator', ['$rootScope', '$location', function($rootScope, $location) {
 	var service = {
 		current: '/'
 	};

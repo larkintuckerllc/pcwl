@@ -8,7 +8,8 @@
 				<td style="text-align: center; vertical-align: middle; width: 60%;">
 					<strong>PC Weight Loss</strong>
 				<td style="text-align: right; vertical-align: middle; width: 20%;">
-					&nbsp;
+					<button ng-if="active"  ng-click="navigate('/columns/from/logs/' + logKey + '/from/' + from);" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span> Create Choice</button>
+					<span ng-if="! active">&nbsp;</span>
 				</td>
 			</tr>
 		</table>
@@ -38,9 +39,9 @@
 				</li>
 			</ul>
 		</div>
-		<form name="totals_form" role="form" novalidate>
+		<form ng-if="active" name="totals_form" role="form" novalidate>
 			<div ng-class="{'form-group': true,  'has-feedback': true, 'has-error': totals_form.exercise.$invalid}">
-				<label class="control-label" for="exercise">Exercise (30-40)</label>
+				<label class="control-label" for="exercise">Exercise (30 - 40)</label>
 				<input type="number" name="exercise" class="form-control" id="exercise" placeholder="Minutes" ng-model="log.exercise" posinteger>
 			</div>
 			<div ng-class="{'form-group': true,  'has-feedback': true, 'has-error': totals_form.steps.$invalid}">
@@ -50,6 +51,20 @@
 			<div ng-class="{'form-group': true,  'has-feedback': true, 'has-error': totals_form.screen.$invalid}">
 				<label class="control-label" for="screen">Screen Time</label>
 				<input type="number" name="screen" class="form-control" id="screen" placeholder="Minutes" ng-model="log.screen" posinteger>
+			</div>
+		</form>
+                <form ng-if="! active" name="read_totals_form" role="form" novalidate>
+                        <div class="form-group">
+                                <label class="control-label">Exercise (30 - 40)</label>
+                                <p class="form-control-static">{{log.exercise}}</p>
+                        </div>
+                        <div class="form-group">
+                                <label class="control-label">Steps (5000 +)</label>
+                                <p class="form-control-static">{{log.steps}}</p>
+			</div>
+                        <div class="form-group">
+                                <label class="control-label">Screen</label>
+                                <p class="form-control-static">{{log.screen}}</p>
 			</div>
 		</form>
                 <div class="panel panel-default">
@@ -75,7 +90,7 @@
 			</ul>
 		</div>
 	</div>
-	<div class="panel-footer">
+	<div ng-if="active" class="panel-footer">
 		<table style="width: 100%">
 			<tr>
 				<td style="text-align: left; vertical-align: top; width: 20%";>
@@ -91,3 +106,5 @@
                 </table>
         </div>
 </div>
+
+

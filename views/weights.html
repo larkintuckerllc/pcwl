@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<table style="width: 100%">
+			<tr>
+				<td style="text-align: left; vertical-align: middle; width: 20%;">
+					<button ng-click="navigate('/home')" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
+				</td>
+				<td style="text-align: center; vertical-align: middle; width: 60%;">
+					<strong>PC Weight Loss</strong>
+				<td style="text-align: right; vertical-align: middle; width: 20%;">
+					&nbsp;
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="panel-body">
+		<form name="weight_form" role="form" class="form-horizontal" novalidate>
+			<div ng-class="{'form-group': true,  'has-feedback': true,  'has-error': weight_form.weight.$invalid}">
+				<label class="col-xs-2 control-label" for="weight">Weight</label>
+				<div class="col-xs-10">
+					<input type="text" name="weight" class="form-control" id="weight" placeholder="Weight" ng-model="weight" required onedecimal>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-offset-2 col-xs-10">
+					<button ng-click="newWeight();" type="button" class="btn btn-default btn-sm" ng-disabled="weight_form.$invalid" ><span class="glyphicon glyphicon-add"></span> Create</button>
+				</div>
+			</div>
+		</form>
+		<div class="text-center" ng-if="chartShow" ng-attr-line-chart ng-attr-chart-data="chartWeights" ng-attr-chart-min="chartMin" ng-attr-chart-max="chartMax"></div> 
+	</div>
+	<ul class="list-group">
+		<li ng-click="remove(weight.key);" class="list-group-item" ng-repeat="weight in weights|orderBy:weightComparator:true">
+			<table style="width: 100%">
+				<tr>
+					<td style="text-align: left; vertical-align: middle; width: 70%;">
+						<p class="list-group-item-text"><strong>{{weight.value.time | date:'fullDate'}}</strong></p>
+					</td>
+					<td style="text-align: right; vertical-align: middle; width: 30%;">
+						<span style="display: inline" class="badge">{{weight.value.weight}}</span>
+						<span class="glyphicon glyphicon-remove"></span>
+					</td>
+				</tr>
+			</table>
+		</li>
+	</ul>
+</div>
+
+

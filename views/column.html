@@ -3,7 +3,7 @@
 		<table style="width: 100%">
 			<tr>
 				<td style="text-align: left; vertical-align: middle; width: 20%;">
-					<button ng-click="navigate('/columns')" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
+					<button ng-click="navigate('/columns/from/' + from)" type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
 				</td>
 				<td style="text-align: center; vertical-align: middle; width: 60%;">
 					<strong>PC Weight Loss</strong>
@@ -21,7 +21,7 @@
 			</div>
 			<ul class="list-group">
 				<!-- WATCH OUT FILTER IS A CONTAINS MATCH -->
-				<li ng-class="{'list-group-item': true, 'good': item.quality === 'good', 'soso': item.quality === 'soso', 'poor': item.quality === 'poor'}" ng-repeat="item in items | filter: {'kind': kind.key}" ng-click="navigate('/items/' + item.key);">
+				<li ng-class="{'list-group-item': true, 'good': item.quality === 'good', 'soso': item.quality === 'soso', 'poor': item.quality === 'poor'}" ng-repeat="item in items | filter: {'kind': kind.key}" ng-click="navigate('/items/' + item.key + '/from/' + from);">
 					<table style="width: 100%">
 						<tr>
 							<td style="text-align: left; vertical-align: middle; width: 80%;">

@@ -1,4 +1,6 @@
-angular.module('myApp').directive('slider', ['$timeout', function($timeout) {
+var module = angular.module('controlDirectives', []);
+
+module.directive('slider', ['$timeout', function($timeout) {
     var directive = {};
     directive.restrict = 'A';
     directive.scope = {
@@ -67,3 +69,65 @@ angular.module('myApp').directive('slider', ['$timeout', function($timeout) {
     };
     return directive;
 }]);
+
+module.directive('lineChart', ['$window', function($window) {
+	var directive = {
+		restrict: 'A',
+		scope: {
+			data: '=chartData',
+			min: '=chartMin',
+			max: '=chartMax'
+		},
+		link: function (scope, element, attrs) {
+			var chartDiv = $window.d3.select(element[0]);
+			var chart = c3.generate({
+				bindto: chartDiv,
+				size: {
+					width: 280,
+					height: 200
+				},
+				interaction: {
+					enabled: false
+				},
+				axis: {
+					x: {
+						show: false
+					},
+					y: {
+						min: 0, 
+						max: 1
+					}
+				},
+				legend: {
+					show: false
+				},
+				data: {
+					x: 'x',
+					columns: [
+						['x', 0, 1],
+						['data1', 0, 0]
+					],
+					types: {
+						data1: 'area'
+					}
+				}
+			});
+			scope.$watch(function() { 
+				return scope.data
+			}, function() { 
+				var columns = [
+					['x'],
+					['data1']
+				];
+				columns[0] = columns[0].concat(scope.data[0]);
+				columns[1] = columns[1].concat(scope.data[1]);
+				chart.load({
+					columns: columns
+				});
+				chart.axis.min(scope.min);
+				chart.axis.max(scope.max);
+			}, true);
+		}
+	};
+	return directive;
+}]);    
