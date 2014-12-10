@@ -145,7 +145,7 @@ standardControllers.controller('UserCreateCtrl', ['$scope', 'navigator', 'blockU
 					navigator.navigate('/login');
 				} else {
 					$scope.password = '';
-					$Scope.confirm = '';
+					$scope.confirm = '';
 					$scope.failed = true;
 				}
 				blockUI.stop();
